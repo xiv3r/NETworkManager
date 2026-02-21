@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>NETworkManager Blog</title>
+        <link>https://borntoberoot.net/NETworkManager/blog</link>
+        <description>NETworkManager Blog</description>
+        <lastBuildDate>Thu, 19 Feb 2026 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[System-Wide Policies for Enterprise Deployments]]></title>
+            <link>https://borntoberoot.net/NETworkManager/blog/system-wide-policies-for-enterprise-deployments</link>
+            <guid>https://borntoberoot.net/NETworkManager/blog/system-wide-policies-for-enterprise-deployments</guid>
+            <pubDate>Thu, 19 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[NETworkManager now supports system-wide policies, giving administrators centralized control over application settings across all users on a machine. This feature is available since the pre-release version 2026.02.19.0 and can now be tested.]]></description>
+            <content:encoded><![CDATA[<p>NETworkManager now supports system-wide policies, giving administrators centralized control over application settings across all users on a machine. This feature is available since the <a href="https://github.com/BornToBeRoot/NETworkManager/releases" target="_blank" rel="noopener noreferrer" class="">pre-release version 2026.02.19.0</a> and can now be tested.</p>
+<p><img decoding="async" loading="lazy" alt="System-wide policy indicator" src="https://borntoberoot.net/NETworkManager/assets/images/system-wide-policy-indicator-cf235b9935f6426da4c97e2ec5c77446.png" width="1200" height="600" class="img_ev3q"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-are-system-wide-policies">What Are System-Wide Policies?<a href="https://borntoberoot.net/NETworkManager/blog/system-wide-policies-for-enterprise-deployments#what-are-system-wide-policies" class="hash-link" aria-label="Direct link to What Are System-Wide Policies?" title="Direct link to What Are System-Wide Policies?" translate="no">​</a></h2>
+<p>System-wide policies allow administrators to enforce specific settings for all users on a machine. These policies override user-specific settings and provide centralized control over application behavior in enterprise environments.</p>
+<p>When a policy is active, the corresponding setting is locked in the UI and displays a shield icon along with a message indicating that the setting is managed by an administrator. Users can see the enforced value but cannot change it.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-configure-policies">How to Configure Policies<a href="https://borntoberoot.net/NETworkManager/blog/system-wide-policies-for-enterprise-deployments#how-to-configure-policies" class="hash-link" aria-label="Direct link to How to Configure Policies" title="Direct link to How to Configure Policies" translate="no">​</a></h2>
+<p>Policies are defined in a <code>config.json</code> file placed in the application installation directory (the same folder as <code>NETworkManager.exe</code>). When this file exists, the application loads the policies at startup and applies them with precedence over user settings. An example file (<code>config.json.example</code>) is included in the application installation directory for reference.</p>
+<p><strong>File location:</strong></p>
+<ul>
+<li class=""><strong>Installed version</strong>: <code>C:\Program Files\NETworkManager\config.json</code> (or your custom installation path)</li>
+<li class=""><strong>Portable version</strong>: Same directory as <code>NETworkManager.exe</code></li>
+</ul>
+<p><strong>File format:</strong></p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">"Policy_Name"</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<p>Property names follow the pattern <code>Section_SettingName</code>. You can find the available policy names and values in the corresponding <a href="https://borntoberoot.net/NETworkManager/docs/category/settings" target="_blank" rel="noopener noreferrer" class="">setting's documentation</a>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="example-policy">Example Policy<a href="https://borntoberoot.net/NETworkManager/blog/system-wide-policies-for-enterprise-deployments#example-policy" class="hash-link" aria-label="Direct link to Example Policy" title="Direct link to Example Policy" translate="no">​</a></h3>
+<p>For example, the <a href="https://borntoberoot.net/NETworkManager/docs/settings/update" target="_blank" rel="noopener noreferrer" class=""><code>Update_CheckForUpdatesAtStartup</code></a> policy controls whether the application checks for new program versions on GitHub when the application is launched.</p>
+<p><strong>Values:</strong></p>
+<ul>
+<li class=""><code>true</code> — Force enable automatic update checks at startup for all users</li>
+<li class=""><code>false</code> — Force disable automatic update checks at startup for all users</li>
+<li class="">Omit the property — Allow users to control this setting themselves</li>
+</ul>
+<p><strong>Example <code>config.json</code>:</strong></p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token property" style="color:#36acaa">"Update_CheckForUpdatesAtStartup"</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean" style="color:#36acaa">false</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><ul>
+<li class="">The file must be named exactly <code>config.json</code></li>
+<li class="">The file must contain valid JSON syntax</li>
+<li class="">Changes to the file require restarting the application to take effect</li>
+<li class="">If the file doesn't exist or contains invalid JSON, it will be ignored and user settings will apply</li>
+</ul></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deploying-policies">Deploying Policies<a href="https://borntoberoot.net/NETworkManager/blog/system-wide-policies-for-enterprise-deployments#deploying-policies" class="hash-link" aria-label="Direct link to Deploying Policies" title="Direct link to Deploying Policies" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><strong>Create the configuration file</strong> — Use the <code>config.json.example</code> as a template, rename it to <code>config.json</code>, and set your desired policy values.</p>
+</li>
+<li class="">
+<p><strong>Deploy to installation directory</strong> — Place the <code>config.json</code> file in the same directory as <code>NETworkManager.exe</code>. For MSI installations, this is typically <code>C:\Program Files\NETworkManager\</code>.</p>
+</li>
+<li class="">
+<p><strong>Deploy methods:</strong></p>
+<ul>
+<li class="">Group Policy — copy the file to the installation directory (use Group Policy preferences or a startup script)</li>
+<li class="">Configuration management tools — SCCM/ConfigMgr, Microsoft Intune, Ansible, etc.</li>
+<li class="">Scripts and deployment toolkits — PowerShell scripts, PSAppDeployToolkit</li>
+<li class="">Manual deployment — hand-copy for small-scale rollouts</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Verification:</strong></p>
+<ul>
+<li class="">Launch the application</li>
+<li class="">Navigate to Settings &gt; Update (e.g., "Check for updates at startup")</li>
+<li class="">Verify the shield icon and the administrator message appear and that the control is disabled</li>
+</ul>
+</li>
+</ol>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Ensure the <code>config.json</code> file has appropriate permissions so that regular users cannot modify it. On standard installations in <code>Program Files</code>, this is automatically enforced by Windows file permissions.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="request-more-policies">Request More Policies<a href="https://borntoberoot.net/NETworkManager/blog/system-wide-policies-for-enterprise-deployments#request-more-policies" class="hash-link" aria-label="Direct link to Request More Policies" title="Direct link to Request More Policies" translate="no">​</a></h2>
+<p>Additional policy options will be added in future releases to provide more granular control over application behavior. If you have specific requirements for system-wide policies in your organization, please submit a feature request via the <a href="https://github.com/BornToBeRoot/NETworkManager/issues/new/choose" target="_blank" rel="noopener noreferrer" class="">GitHub issue tracker</a> to help us prioritize.</p>
+<p>More information is available in the <a href="https://borntoberoot.net/NETworkManager/docs/system-wide-policies" target="_blank" rel="noopener noreferrer" class="">official documentation</a>.</p>
+<p>If you find any issues or have suggestions for improvement, please open an <a href="https://github.com/BornToBeRoot/NETworkManager/issues" target="_blank" rel="noopener noreferrer" class="">issue on GitHub</a>.</p>]]></content:encoded>
+            <category>policies</category>
+            <category>enterprise</category>
+            <category>settings</category>
+            <category>new feature</category>
+        </item>
+        <item>
+            <title><![CDATA[Improved light theme readability]]></title>
+            <link>https://borntoberoot.net/NETworkManager/blog/improved-light-theme-readability</link>
+            <guid>https://borntoberoot.net/NETworkManager/blog/improved-light-theme-readability</guid>
+            <pubDate>Thu, 23 Oct 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[The latest release of NETworkManager (version 2025.10.18.0) introduces major enhancements to the light theme, improving both readability and overall user experience.]]></description>
+            <content:encoded><![CDATA[<p>The latest release of NETworkManager (version 2025.10.18.0) introduces major enhancements to the light theme, improving both readability and overall user experience.</p>
+<p>In this version, the code that handles theming has been completely rewritten, providing granular control over colors and styles. This allows users to fine-tune the light and dark themes independently, ensuring better contrast, visibility, and accessibility across the interface.</p>
+<p>The light theme has already received several improvements to enhance readability, and more adjustments are planned for future releases based on user feedback. So please don’t hesitate to share your thoughts on the <a href="https://github.com/BornToBeRoot/NETworkManager/issues" target="_blank" rel="noopener noreferrer" class="">GitHub issue tracker</a>.</p>
+<p><img decoding="async" loading="lazy" alt="Preview - Light theme" src="https://borntoberoot.net/NETworkManager/assets/images/preview-light-theme-317c68e84a6a32107347c08013d5321b.png" width="1024" height="768" class="img_ev3q"></p>
+<p>Upgrade now to the <a href="https://borntoberoot.net/NETworkManager/download" target="_blank" rel="noopener noreferrer" class="">latest version of NETworkManager</a> to use this feature.</p>
+<p>More information is available in the <a href="https://borntoberoot.net/NETworkManager/docs/settings/appearance" target="_blank" rel="noopener noreferrer" class="">official documentation</a>.</p>
+<p>If you find any issues or have suggestions for improvement, please open an <a href="https://github.com/BornToBeRoot/NETworkManager/issues" target="_blank" rel="noopener noreferrer" class="">issue on GitHub</a>.</p>]]></content:encoded>
+            <category>theme</category>
+            <category>ui</category>
+        </item>
+        <item>
+            <title><![CDATA[Streamlined Profile Management with Tags & Filters]]></title>
+            <link>https://borntoberoot.net/NETworkManager/blog/streamlined-profile-management-with-tags-and-filters</link>
+            <guid>https://borntoberoot.net/NETworkManager/blog/streamlined-profile-management-with-tags-and-filters</guid>
+            <pubDate>Sun, 19 Oct 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[NETworkManager 2025.10.18.0 brings a streamlined approach to profile management with the introduction of Tags and Filtering.]]></description>
+            <content:encoded><![CDATA[<p>NETworkManager 2025.10.18.0 brings a streamlined approach to profile management with the introduction of Tags and Filtering.</p>
+<p>You can now add or remove tags directly within each profile, making it effortless to organize and quickly locate your hosts and networks.</p>
+<p><img decoding="async" loading="lazy" alt="Profile Tags &amp;amp; Filters" src="https://borntoberoot.net/NETworkManager/assets/images/profile-tags-and-filters-58db70a009ccc6bb5dec2e975e10f95e.gif" width="1024" height="768" class="img_ev3q"></p>
+<p>Easily filter profiles across features using the new filter button next to the search box.</p>
+<p>Choose between two filter modes:</p>
+<ul>
+<li class="">Match All: Display profiles containing all selected tags (e.g., <code>prod</code> and <code>dns</code>).</li>
+<li class="">Match Any: Display profiles containing at least one selected tag (e.g., <code>prod</code> or <code>dev</code>).</li>
+</ul>
+<p>Additionally, profile groups are now more manageable. Right-click any group header to access a new context menu, allowing you to expand or collapse all groups with a single click.</p>
+<p>These enhancements make managing large profile sets faster, cleaner, and more intuitive than ever.</p>
+<p>Upgrade now to the <a href="https://borntoberoot.net/NETworkManager/download" target="_blank" rel="noopener noreferrer" class="">latest version of NETworkManager</a> to use this feature.</p>
+<p>More information is available in the <a href="https://borntoberoot.net/NETworkManager/docs/groups-and-profiles" target="_blank" rel="noopener noreferrer" class="">official documentation</a>.</p>
+<p>If you find any issues or have suggestions for improvement, please open an <a href="https://github.com/BornToBeRoot/NETworkManager/issues" target="_blank" rel="noopener noreferrer" class="">issue on GitHub</a>.</p>]]></content:encoded>
+            <category>profile management</category>
+            <category>tags</category>
+            <category>new feature</category>
+        </item>
+        <item>
+            <title><![CDATA[Introducing Hosts File Editor]]></title>
+            <link>https://borntoberoot.net/NETworkManager/blog/introducing-hosts-file-editor</link>
+            <guid>https://borntoberoot.net/NETworkManager/blog/introducing-hosts-file-editor</guid>
+            <pubDate>Sat, 06 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[NETworkManager 2025.8.10.0 introduced a new feature, the Hosts File Editor. You can now easily manage and edit your system's hosts file in a user-friendly interface.]]></description>
+            <content:encoded><![CDATA[<p>NETworkManager 2025.8.10.0 introduced a new feature, the <code>Hosts File Editor</code>. You can now easily manage and edit your system's hosts file in a user-friendly interface.</p>
+<p>As a sysadmin or developer, you often need to modify the hosts file in order to override DNS settings for specific domains, redirect traffic, or test websites locally.</p>
+<p><img decoding="async" loading="lazy" alt="Hosts File Editor" src="https://borntoberoot.net/NETworkManager/assets/images/hosts-file-editor-30d579f84578d3c768a537ec0d71e1e7.gif" width="1200" height="800" class="img_ev3q"></p>
+<p>The hosts file is a plain text file used by the operating system to map hostnames to IP addresses. It is typically located at:</p>
+<ul>
+<li class="">Windows: <code>C:\Windows\System32\drivers\etc\hosts</code></li>
+<li class="">Linux: <code>/etc/hosts</code></li>
+</ul>
+<p>Editing this file usually requires administrative privileges and can be cumbersome using traditional text editors.
+With the new Hosts File Editor in NETworkManager, you can now easily add, edit, enable, disable, or delete entries
+in your hosts file without needing to manually open and edit the file.</p>
+<p>A daily backup (up to 5 versions) of the hosts file is created automatically before any changes are applied,
+allowing you to restore previous versions if needed.</p>
+<p>Upgrade now to the <a href="https://borntoberoot.net/NETworkManager/download" target="_blank" rel="noopener noreferrer" class="">latest version of NETworkManager</a> to use this feature.</p>
+<p>More information is available in the <a href="https://borntoberoot.net/NETworkManager/download/docs/application/hosts-file-editor" target="_blank" rel="noopener noreferrer" class="">official documentation</a>.</p>
+<p>If you find any issues or have suggestions for improvement, please open an <a href="https://github.com/BornToBeRoot/NETworkManager/issues" target="_blank" rel="noopener noreferrer" class="">issue on GitHub</a>.</p>]]></content:encoded>
+            <category>hosts file</category>
+            <category>dns</category>
+            <category>new feature</category>
+        </item>
+        <item>
+            <title><![CDATA[Introducing Code Signing for Binaries]]></title>
+            <link>https://borntoberoot.net/NETworkManager/blog/introducing-code-signing-for-binaries</link>
+            <guid>https://borntoberoot.net/NETworkManager/blog/introducing-code-signing-for-binaries</guid>
+            <pubDate>Fri, 24 May 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Starting with NETworkManager version 2024.5.24.0, the binaries and the installer are now signed with a code signing certificate.]]></description>
+            <content:encoded><![CDATA[<p>Starting with NETworkManager version 2024.5.24.0, the binaries and the installer are now signed with a code signing certificate.</p>
+<p>The binaries and installer are built on <a href="https://ci.appveyor.com/project/BornToBeRoot/networkmanager" target="_blank" rel="noopener noreferrer" class="">AppVeyor</a> directly from the <a href="https://github.com/BornToBeRoot/NETworkManager/blob/main/appveyor.yml" target="_blank" rel="noopener noreferrer" class="">GitHub repository</a>.
+Build artifacts are automatically sent to <a href="https://signpath.io/" target="_blank" rel="noopener noreferrer" class="">SignPath.io</a> via webhook, where they are signed after manual approval by the maintainer.
+The signed binaries are then uploaded to the <a href="https://github.com/BornToBeRoot/NETworkManager/releases" target="_blank" rel="noopener noreferrer" class="">GitHub releases</a> page.</p>
+<p>Special thanks goes to <a href="https://signpath.io/" target="_blank" rel="noopener noreferrer" class="">SignPath.io</a> for providing free code signing and the <a href="https://signpath.org/" target="_blank" rel="noopener noreferrer" class="">SignPath Foundation</a> for the free code signing certificate.</p>]]></content:encoded>
+            <category>code-signing</category>
+            <category>binaries</category>
+            <category>installer</category>
+        </item>
+        <item>
+            <title><![CDATA[Welcome]]></title>
+            <link>https://borntoberoot.net/NETworkManager/blog/welcome</link>
+            <guid>https://borntoberoot.net/NETworkManager/blog/welcome</guid>
+            <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Welcome to the new NETworkManager website, blod and documentation.]]></description>
+            <content:encoded><![CDATA[<p>Welcome to the new NETworkManager website, blod and documentation.</p>
+<p>It's build with <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer" class="">Docusaurus</a>, a static website generator, and hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer" class="">GitHub Pages</a>.</p>
+<p>You can help to improve the documentation by submitting a <a href="https://github.com/BornToBeRoot/NETworkManager" target="_blank" rel="noopener noreferrer" class="">pull request</a>.</p>]]></content:encoded>
+            <category>welcome</category>
+            <category>docusaurus</category>
+        </item>
+    </channel>
+</rss>
