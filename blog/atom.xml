@@ -2,11 +2,65 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://borntoberoot.net/NETworkManager/blog</id>
     <title>NETworkManager Blog</title>
-    <updated>2026-03-04T00:00:00.000Z</updated>
+    <updated>2026-04-30T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://borntoberoot.net/NETworkManager/blog"/>
     <subtitle>NETworkManager Blog</subtitle>
     <icon>https://borntoberoot.net/NETworkManager/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Introducing Firewall]]></title>
+        <id>https://borntoberoot.net/NETworkManager/blog/introducing-firewall</id>
+        <link href="https://borntoberoot.net/NETworkManager/blog/introducing-firewall"/>
+        <updated>2026-04-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[NETworkManager introduces the new Firewall feature. View, add, edit, enable, disable, and delete Windows Firewall rules managed by NETworkManager — all from a user-friendly interface.]]></summary>
+        <content type="html"><![CDATA[<p>NETworkManager introduces a new feature, the <code>Firewall</code>. You can now manage Windows Firewall rules created by NETworkManager directly from within the app — no more jumping between MMC snap-ins for day-to-day tasks.</p>
+<p>This is especially useful if you frequently spin up local services (lab environments, dev boxes, game servers, small internal tools) and need a quick and repeatable way to open or block ports, restrict traffic to specific IP ranges, or scope rules to profiles like <strong>Domain</strong>, <strong>Private</strong>, or <strong>Public</strong>.</p>
+<p><img decoding="async" loading="lazy" alt="Firewall" src="https://borntoberoot.net/NETworkManager/assets/images/firewall-60745bd5d0bd03463c3f28624ff42348.png" width="1200" height="800" class="img_ev3q"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="manage-rules-safely-and-without-touching-your-system-rules">Manage rules safely (and without touching your system rules)<a href="https://borntoberoot.net/NETworkManager/blog/introducing-firewall#manage-rules-safely-and-without-touching-your-system-rules" class="hash-link" aria-label="Direct link to Manage rules safely (and without touching your system rules)" title="Direct link to Manage rules safely (and without touching your system rules)" translate="no">​</a></h2>
+<p>The Firewall view intentionally focuses on rules managed by NETworkManager only.</p>
+<p>Every rule created via NETworkManager is stored with a <code>NETworkManager_</code> prefix in the Windows Firewall rule display name. This makes it easy to distinguish "your" rules from system-managed or third-party rules — and it allows NETworkManager to filter the list so you only see what it owns.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-you-can-do-with-the-new-firewall-feature">What you can do with the new Firewall feature<a href="https://borntoberoot.net/NETworkManager/blog/introducing-firewall#what-you-can-do-with-the-new-firewall-feature" class="hash-link" aria-label="Direct link to What you can do with the new Firewall feature" title="Direct link to What you can do with the new Firewall feature" translate="no">​</a></h2>
+<ul>
+<li class="">View firewall rules created by NETworkManager</li>
+<li class="">Add new inbound or outbound rules</li>
+<li class="">Edit existing rules</li>
+<li class="">Enable or disable rules quickly</li>
+<li class="">Delete rules you no longer need</li>
+<li class="">Copy or export rule information</li>
+<li class="">Refresh the list with <code>F5</code></li>
+<li class="">Open the native Windows Firewall console (<code>WF.msc</code>) via the <strong>Windows Firewall Settings</strong> button</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="add--edit-rules--with-the-options-you-actually-need">Add / Edit rules — with the options you actually need<a href="https://borntoberoot.net/NETworkManager/blog/introducing-firewall#add--edit-rules--with-the-options-you-actually-need" class="hash-link" aria-label="Direct link to Add / Edit rules — with the options you actually need" title="Direct link to Add / Edit rules — with the options you actually need" translate="no">​</a></h2>
+<p>When creating or editing a rule, NETworkManager exposes the most common and important fields in a clear dialog:</p>
+<p><img decoding="async" loading="lazy" alt="Add rule" src="https://borntoberoot.net/NETworkManager/assets/images/firewall-rule-41e929868ed7df5bcd4fb9e97c5899ca.png" width="1200" height="800" class="img_ev3q"></p>
+<ul>
+<li class=""><strong>Name</strong>: Display name of the rule (the <code>NETworkManager_</code> prefix is added automatically and hidden in the UI)</li>
+<li class=""><strong>Enabled</strong>: Whether the rule is active right after creation</li>
+<li class=""><strong>Description</strong>: Optional description of the rule</li>
+<li class=""><strong>Direction</strong>: Inbound / Outbound</li>
+<li class=""><strong>Action</strong>: Allow / Block</li>
+<li class=""><strong>Protocol</strong>: Any, TCP, UDP, ICMPv4, ICMPv6, GRE, L2TP</li>
+<li class=""><strong>Local / Remote ports</strong>: Available for TCP and UDP; multiple ports and ranges separated by <code>;</code></li>
+<li class=""><strong>Local / Remote addresses</strong>: Supports single IPs, ranges, subnets (CIDR and subnet masks), and keywords such as <code>LocalSubnet</code> or <code>Internet</code></li>
+<li class=""><strong>Program</strong>: Limit the rule to a specific executable (optional)</li>
+<li class=""><strong>Interface type</strong>: Any, Wired, Wireless, RemoteAccess</li>
+<li class=""><strong>Network profiles</strong>: Domain / Private / Public (at least one must be selected)</li>
+</ul>
+<p>You can find all details (including examples for port and address formats) in the <a href="https://borntoberoot.net/NETworkManager/docs/application/firewall" target="_blank" rel="noopener noreferrer" class="">official documentation</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="administrator-privileges">Administrator privileges<a href="https://borntoberoot.net/NETworkManager/blog/introducing-firewall#administrator-privileges" class="hash-link" aria-label="Direct link to Administrator privileges" title="Direct link to Administrator privileges" translate="no">​</a></h2>
+<p>Managing firewall rules requires elevated rights. If NETworkManager is not running as administrator, the Firewall view is <strong>read-only</strong>. Use the <strong>Restart as administrator</strong> button to relaunch NETworkManager with the required privileges.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="try-it-now">Try it now<a href="https://borntoberoot.net/NETworkManager/blog/introducing-firewall#try-it-now" class="hash-link" aria-label="Direct link to Try it now" title="Direct link to Try it now" translate="no">​</a></h2>
+<p>You can test this feature in the <a href="https://borntoberoot.net/NETworkManager/download#pre-release" target="_blank" rel="noopener noreferrer" class="">latest pre-release of NETworkManager</a>.</p>
+<p>If you find any issues or have suggestions for improvement, please open an <a href="https://github.com/BornToBeRoot/NETworkManager/issues" target="_blank" rel="noopener noreferrer" class="">issue on GitHub</a>.</p>]]></content>
+        <author>
+            <name>BornToBeRoot</name>
+            <uri>https://github.com/BornToBeRoot</uri>
+        </author>
+        <category label="firewall" term="firewall"/>
+        <category label="windows firewall" term="windows firewall"/>
+        <category label="security" term="security"/>
+        <category label="new feature" term="new feature"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Deep Dive: Fixing DPI Scaling for Embedded Processes in WPF]]></title>
         <id>https://borntoberoot.net/NETworkManager/blog/deep-dive-fixing-dpi-scaling-for-embedded-processes-in-wpf</id>
